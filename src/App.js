@@ -1,22 +1,36 @@
-import logo from './logo.svg';
 import './App.css';
+import React from "react";
 
 
 
 export default function App() {
-  import React from 'react';
+
+  const [grade, setGrade] = React.useState([
+    
+  ])
  
-  const [todos, setTodos] = react.useState([
-    { id: 1, text: "Wash Dishes", done: false },
-    { id: 2, text: "Do Laundry", done: false },
-    { id: 3, text: "Take Shower", done: false }
+  const [todos, setTodos] = React.useState([
+   
   ]);
+  
 
   return (
     <div>
-      <h1>Todo List</h1>
+      <h1>
+          Finals Grade Calculator
+        </h1>
+        <p>
+          This Program will allow you to find out what grade you need on your final to get the grade you want in the class
+          you can put you're curret grade in the first imput section and youre desired grade in the seccond.
+          
+        </p>
+      <h1>Class</h1>
       <TodoList todos={todos} />
       <AddTodo setTodos={setTodos} />
+      
+      <h1>Grade</h1>
+      <GradeList grade={grade} />
+      <AddGrade setGrade={setGrade} />
     </div>
   );
 
@@ -34,7 +48,7 @@ function TodoList({ todos }) {
 }
 
 function AddTodo({ setTodos }) {
-  const inputRef = react.useRef();
+  const inputRef = React.useRef();
 
   function handleAddTodo(event) {
     event.preventDefault();
@@ -55,20 +69,38 @@ function AddTodo({ setTodos }) {
       <button type="submit">Submit</button>
     </form>
   );
-  return (
-    <div className="App">
-      <header className="App-header">
-        <h1>
-          Finals Grade Calculator
-        </h1>
-        <p>
-          This Program will allow you to find out what grade you need on your final to get the grade you want in the class
-          you can put you're curret grade in the first imput section and youre desired grade in the seccond.
-          
-        </p>
+}
+function GradeList({grade}){
+  return(
+    <ul>
+      {" "}
+      {grade.map((grade)=> (
+        <li key={grade.id}>{grade.text}</li>
+      ))}
+    </ul>
+  )
+}
+function AddGrade({setGrade}) {
+  const inputRef = React.useRef();
   
-      </header>
-    </div>
+  function handleAddGrade(event){
+    event.preventDefault();
+    const text = event.target.elements.AddGrade.value;
+    const grade = {
+      id: 4,
+      text,
+      done: false
+    }
+    setGrade((prevGrade)=>{
+      return prevGrade.concat(grade)
+    })
+
+  }
+  return(
+    <form onSubmit={handleAddGrade}>
+      <input name="addGrade" placeholder="Add grade" ref={inputRef}/>
+      <button  type="submit"> submit</button>
+    </form>
   )
 }
 }
